@@ -39,9 +39,9 @@ class TvPopular {
       originalLanguage: json['original_language'],
       originalName: json['original_name'],
       overview: json['overview'],
-      popularity: json['popularity'],
+      popularity: double.tryParse('${json['popularity']}'),
       posterPath: json['poster_path'],
-      voteAverage: json['vote_average'],
+      voteAverage: double.tryParse('${json['vote_average']}'),
       voteCount: json['vote_count'],
     );
   }

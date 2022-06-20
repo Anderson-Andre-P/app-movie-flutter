@@ -24,6 +24,7 @@ class TvPopularRepository {
 
       return listTvPopular;
     } catch (e) {
+      print(e);
       return <TvPopular>[];
     }
   }

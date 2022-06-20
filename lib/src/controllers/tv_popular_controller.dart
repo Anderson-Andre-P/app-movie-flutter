@@ -7,7 +7,6 @@ class TvPopularController {
 
   TvPopularController(this._repository);
 
-  Future<List<TvPopular>> getTvPopular() async {
-    return await _repository.featchTvPopular();
-  }
+  Future<List<TvPopular>> getTvPopular() async =>
+      tvPopular = await _repository.featchTvPopular();
 }

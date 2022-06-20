@@ -1,10 +1,13 @@
 import 'package:consumindo_api/src/controllers/genre_controller.dart';
 import 'package:consumindo_api/src/controllers/movie_controller.dart';
+import 'package:consumindo_api/src/controllers/tv_popular_controller.dart';
 import 'package:consumindo_api/src/repositories/genre_repository.dart';
 import 'package:consumindo_api/src/repositories/movie_repository.dart';
+import 'package:consumindo_api/src/repositories/tv_popular_repository.dart';
 import 'package:consumindo_api/src/shared/infrastructure/dio_adapter.dart';
 import 'package:consumindo_api/src/shared/utils/app_colors.dart';
 import 'package:consumindo_api/src/views/widgets/card_genre.dart';
+import 'package:consumindo_api/src/views/widgets/card_item_tv.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/card_item_movie.dart';
@@ -18,6 +21,8 @@ class PageTv extends StatefulWidget {
 
 class _PageTvState extends State<PageTv> {
   MovieController controller = MovieController(MovieRepository(dio));
+  TvPopularController tvController =
+      TvPopularController(TvPopularRepository(dio));
   GenreController controllerGenre = GenreController(GenreRepository(dio));
 
   int idGenre = 0;
@@ -31,7 +36,7 @@ class _PageTvState extends State<PageTv> {
   void initState() {
     super.initState();
     controllerGenre.getGenre().then(
-          (listGenres) => controller.getGenreMovies().then(
+          (listGenres) => tvController.getTvPopular().then(
                 (listMovie) => alterLoading(false),
               ),
         );
@@ -39,7 +44,7 @@ class _PageTvState extends State<PageTv> {
 
   @override
   Widget build(BuildContext context) {
-    lengthMovie = controller.movies.length;
+    lengthMovie = tvController.tvPopular.length;
     return Scaffold(
       appBar: AppBar(
         // leading: const Icon(Icons.menu),
@@ -100,7 +105,7 @@ class _PageTvState extends State<PageTv> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Categorias',
+                  'Categorias de Tvs',
                   style: TextStyle(
                     fontSize: 30,
                     color: AppColors.whiteColor,
@@ -167,7 +172,7 @@ class _PageTvState extends State<PageTv> {
                       color: AppColors.whiteColor,
                     ),
                   )
-                : controller.movies.isEmpty
+                : tvController.tvPopular.isEmpty
                     ? Center(
                         child: Text(
                           'Categoria não possui filmes',
@@ -175,7 +180,7 @@ class _PageTvState extends State<PageTv> {
                         ),
                       )
                     : ListView.builder(
-                        itemCount: controller.movies.length,
+                        itemCount: tvController.tvPopular.length,
                         itemBuilder: (context, index) {
                           if (index == (lengthMovie - 8)) {
                             var genre = idGenre != 0 ? idGenre : null;
@@ -183,8 +188,8 @@ class _PageTvState extends State<PageTv> {
                                 .getGenreMovies(genre: '$genre', nextPage: true)
                                 .then((value) => setState(() {}));
                           }
-                          return CardItemMovie(
-                            movie: controller.movies[index],
+                          return CardItemTv(
+                            tv: tvController.tvPopular[index],
                             genres: controllerGenre.genres,
                           );
                         },

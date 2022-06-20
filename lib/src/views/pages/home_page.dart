@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                     alignment: Alignment.centerLeft,
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/tv_page');
+                    Navigator.pushReplacementNamed(context, '/tv_page');
                   },
                   child: const Text(
                     'Tv',
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Categorias',
+                  'Categorias de filmes',
                   style: TextStyle(
                     fontSize: 30,
                     color: AppColors.whiteColor,
