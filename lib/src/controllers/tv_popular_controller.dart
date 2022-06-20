@@ -9,4 +9,15 @@ class TvPopularController {
 
   Future<List<TvPopular>> getTvPopular() async =>
       tvPopular = await _repository.featchTvPopular();
+
+  Future<void> getGenrePageTv({String? genre, bool nextPage = false}) async {
+    final response =
+        await _repository.featchGenrePageTv(genre: genre, nextPage: nextPage);
+
+    if (nextPage) {
+      tvPopular.addAll(response);
+    } else {
+      tvPopular = response;
+    }
+  }
 }

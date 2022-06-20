@@ -5,6 +5,7 @@ import 'package:consumindo_api/src/repositories/movie_repository.dart';
 import 'package:consumindo_api/src/shared/infrastructure/dio_adapter.dart';
 import 'package:consumindo_api/src/shared/utils/app_colors.dart';
 import 'package:consumindo_api/src/views/widgets/card_genre.dart';
+import 'package:consumindo_api/src/views/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/card_item_movie.dart';
@@ -52,45 +53,7 @@ class _HomePageState extends State<HomePage> {
           SizedBox(width: 10),
         ],
       ),
-      drawer: Drawer(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const DrawerHeader(
-                child: Text('data'),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    alignment: Alignment.centerLeft,
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Filmes',
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    alignment: Alignment.centerLeft,
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/tv_page');
-                  },
-                  child: const Text(
-                    'Tv',
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: const CustomDrawer(),
       backgroundColor: AppColors.backgroundColor,
       body: Column(
         children: [

@@ -1,3 +1,4 @@
+import 'package:consumindo_api/src/models/genre_tv.dart';
 import 'package:consumindo_api/src/models/tv_popular.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ import '../../shared/utils/app_colors.dart';
 
 class CardItemTv extends StatelessWidget {
   final TvPopular tv;
-  final List<Genre> genres;
+  final List<GenreTv> genres;
 
   const CardItemTv({Key? key, required this.tv, required this.genres})
       : super(key: key);
@@ -90,8 +91,8 @@ class CardItemTv extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        // 'Gêneros: ${nameGeneresMovies(tv.genreIds!)}',
-                        '',
+                        'Gêneros: ${nameGeneresMovies(tv.genreIds!)}',
+                        // '',
                         style: TextStyle(
                           fontSize: 12,
                           color: AppColors.whiteColor,

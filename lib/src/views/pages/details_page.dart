@@ -3,7 +3,6 @@ import 'package:consumindo_api/src/controllers/genre_controller.dart';
 
 import 'package:consumindo_api/src/repositories/details_repository.dart';
 import 'package:consumindo_api/src/repositories/genre_repository.dart';
-import 'package:consumindo_api/src/shared/utils/app_colors.dart';
 
 import 'package:flutter/material.dart';
 

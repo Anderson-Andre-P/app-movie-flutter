@@ -1,16 +1,17 @@
 import 'package:consumindo_api/src/controllers/genre_controller.dart';
+import 'package:consumindo_api/src/controllers/genre_tv_controller.dart';
 import 'package:consumindo_api/src/controllers/movie_controller.dart';
 import 'package:consumindo_api/src/controllers/tv_popular_controller.dart';
 import 'package:consumindo_api/src/repositories/genre_repository.dart';
+import 'package:consumindo_api/src/repositories/genre_tv_repository.dart';
 import 'package:consumindo_api/src/repositories/movie_repository.dart';
 import 'package:consumindo_api/src/repositories/tv_popular_repository.dart';
 import 'package:consumindo_api/src/shared/infrastructure/dio_adapter.dart';
 import 'package:consumindo_api/src/shared/utils/app_colors.dart';
 import 'package:consumindo_api/src/views/widgets/card_genre.dart';
 import 'package:consumindo_api/src/views/widgets/card_item_tv.dart';
+import 'package:consumindo_api/src/views/widgets/custom_drawer.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/card_item_movie.dart';
 
 class PageTv extends StatefulWidget {
   const PageTv({Key? key}) : super(key: key);
@@ -23,7 +24,9 @@ class _PageTvState extends State<PageTv> {
   MovieController controller = MovieController(MovieRepository(dio));
   TvPopularController tvController =
       TvPopularController(TvPopularRepository(dio));
-  GenreController controllerGenre = GenreController(GenreRepository(dio));
+  // GenreController controllerGenre = GenreController(GenreRepository(dio));
+  GenreTvController controllerGenreTv =
+      GenreTvController(GenreTvRepository(dio));
 
   int idGenre = 0;
   int lengthMovie = 0;
@@ -35,7 +38,7 @@ class _PageTvState extends State<PageTv> {
   @override
   void initState() {
     super.initState();
-    controllerGenre.getGenre().then(
+    controllerGenreTv.getGenreTv().then(
           (listGenres) => tvController.getTvPopular().then(
                 (listMovie) => alterLoading(false),
               ),
@@ -57,45 +60,7 @@ class _PageTvState extends State<PageTv> {
           SizedBox(width: 10),
         ],
       ),
-      drawer: Drawer(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const DrawerHeader(
-                child: Text('data'),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    alignment: Alignment.centerLeft,
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/');
-                  },
-                  child: const Text(
-                    'Filmes',
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    alignment: Alignment.centerLeft,
-                  ),
-                  onPressed: () {},
-                  child: const Text(
-                    'Tv',
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: const CustomDrawer(),
       backgroundColor: AppColors.backgroundColor,
       body: Column(
         children: [
@@ -120,7 +85,7 @@ class _PageTvState extends State<PageTv> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: controllerGenre.genres.length,
+                    itemCount: controllerGenreTv.genresTv.length,
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         return CardGenre(
@@ -128,7 +93,7 @@ class _PageTvState extends State<PageTv> {
                           name: 'Todos',
                           onTap: () {
                             alterLoading(true);
-                            controller.getGenreMovies().then((listMovie) {
+                            tvController.getGenrePageTv().then((listMovie) {
                               setState(
                                 () => idGenre = 0,
                               );
@@ -137,14 +102,15 @@ class _PageTvState extends State<PageTv> {
                           },
                         );
                       } else {
-                        var item = controllerGenre.genres.elementAt(index - 1);
+                        var item =
+                            controllerGenreTv.genresTv.elementAt(index - 1);
                         return CardGenre(
                           clickedButton: idGenre == item.id!,
                           name: item.name!,
                           onTap: () {
                             alterLoading(true);
-                            controller
-                                .getGenreMovies(genre: '${item.id}')
+                            tvController
+                                .getGenrePageTv(genre: '${item.id}')
                                 .then((listMovie) {
                               setState(
                                 () => idGenre = item.id!,
@@ -175,7 +141,7 @@ class _PageTvState extends State<PageTv> {
                 : tvController.tvPopular.isEmpty
                     ? Center(
                         child: Text(
-                          'Categoria não possui filmes',
+                          'Categoria não possui Tvs',
                           style: TextStyle(color: AppColors.whiteColor),
                         ),
                       )
@@ -190,7 +156,7 @@ class _PageTvState extends State<PageTv> {
                           }
                           return CardItemTv(
                             tv: tvController.tvPopular[index],
-                            genres: controllerGenre.genres,
+                            genres: controllerGenreTv.genresTv,
                           );
                         },
                       ),
