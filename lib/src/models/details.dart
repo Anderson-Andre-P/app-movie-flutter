@@ -6,7 +6,7 @@ import 'package:consumindo_api/src/models/spoken_languages.dart';
 class Details {
   bool? adult;
   String? backdropPath;
-  Null? belongsToCollection;
+  // Null? belongsToCollection;
   int? budget;
   List<Genre>? genres;
   String? homepage;
@@ -33,7 +33,7 @@ class Details {
   Details(
       {this.adult,
       this.backdropPath,
-      this.belongsToCollection,
+      // this.belongsToCollection,
       this.budget,
       this.genres,
       this.homepage,
@@ -90,7 +90,7 @@ class Details {
     return Details(
       adult: json['adult'],
       backdropPath: json['backdrop_path'],
-      belongsToCollection: json['belongs_to_collection'],
+      // belongsToCollection: json['belongs_to_collection'],
       budget: int.tryParse('${json['budget']}'),
       homepage: json['homepage'],
       id: json['id'],
@@ -116,7 +116,7 @@ class Details {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['adult'] = adult;
     data['backdrop_path'] = backdropPath;
-    data['belongs_to_collection'] = belongsToCollection;
+    // data['belongs_to_collection'] = belongsToCollection;
     data['budget'] = budget;
     if (genres != null) {
       data['genres'] = genres!.map((v) => v.toJson()).toList();

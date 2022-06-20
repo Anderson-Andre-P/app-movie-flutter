@@ -36,8 +36,8 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
-        backgroundColor: AppColors.backgroundColor,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -55,6 +55,7 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
           },
         ),
       ),
+      extendBodyBehindAppBar: true,
       body: SingleChildScrollView(
         child: Column(
           children: [
