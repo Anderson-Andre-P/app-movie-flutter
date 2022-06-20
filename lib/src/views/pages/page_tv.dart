@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 
 import '../widgets/card_item_movie.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class PageTv extends StatefulWidget {
+  const PageTv({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PageTv> createState() => _PageTvState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PageTvState extends State<PageTv> {
   MovieController controller = MovieController(MovieRepository(dio));
   GenreController controllerGenre = GenreController(GenreRepository(dio));
 
@@ -67,7 +67,9 @@ class _HomePageState extends State<HomePage> {
                   style: TextButton.styleFrom(
                     alignment: Alignment.centerLeft,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/');
+                  },
                   child: const Text(
                     'Filmes',
                   ),
@@ -79,9 +81,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextButton.styleFrom(
                     alignment: Alignment.centerLeft,
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/tv_page');
-                  },
+                  onPressed: () {},
                   child: const Text(
                     'Tv',
                   ),

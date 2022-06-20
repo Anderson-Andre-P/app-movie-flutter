@@ -1,3 +1,4 @@
+import 'package:consumindo_api/src/views/pages/page_tv.dart';
 import 'package:flutter/material.dart';
 import 'src/views/pages/details_page.dart';
 import 'src/views/pages/home_page.dart';
@@ -19,6 +20,8 @@ class RouteGenerator {
           );
         }
         return _errorRoute();
+      case '/tv_page':
+        return MaterialPageRoute(builder: (context) => const PageTv());
       default:
         return _errorRoute();
     }
