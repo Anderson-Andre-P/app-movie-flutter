@@ -1,4 +1,4 @@
-class LastEpisodeToAir {
+class NextEpisodeToAir {
   String? airDate;
   int? episodeNumber;
   int? id;
@@ -11,7 +11,7 @@ class LastEpisodeToAir {
   double? voteAverage;
   int? voteCount;
 
-  LastEpisodeToAir(
+  NextEpisodeToAir(
       {this.airDate,
       this.episodeNumber,
       this.id,
@@ -24,8 +24,8 @@ class LastEpisodeToAir {
       this.voteAverage,
       this.voteCount});
 
-  factory LastEpisodeToAir.fromJson(Map<String, dynamic> json) {
-    return LastEpisodeToAir(
+  factory NextEpisodeToAir.fromJson(Map<String, dynamic> json) {
+    return NextEpisodeToAir(
       airDate: json['air_date'],
       episodeNumber: json['episode_number'],
       id: json['id'],

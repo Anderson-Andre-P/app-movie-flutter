@@ -4,7 +4,7 @@ class Seasons {
   int? id;
   String? name;
   String? overview;
-  // Null? posterPath;
+  String? posterPath;
   int? seasonNumber;
 
   Seasons(
@@ -13,7 +13,7 @@ class Seasons {
       this.id,
       this.name,
       this.overview,
-      // this.posterPath,
+      this.posterPath,
       this.seasonNumber});
 
   factory Seasons.fromJson(Map<String, dynamic> json) {
@@ -23,7 +23,7 @@ class Seasons {
       id: json['id'],
       name: json['name'],
       overview: json['overview'],
-      // posterPath: json['poster_path'],
+      posterPath: json['poster_path'],
       seasonNumber: json['season_number'],
     );
   }
@@ -35,7 +35,7 @@ class Seasons {
     data['id'] = id;
     data['name'] = name;
     data['overview'] = overview;
-    // data['poster_path'] = posterPath;
+    data['poster_path'] = posterPath;
     data['season_number'] = seasonNumber;
     return data;
   }

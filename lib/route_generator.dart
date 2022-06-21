@@ -1,3 +1,4 @@
+import 'package:consumindo_api/src/views/pages/details_tv_page.dart';
 import 'package:consumindo_api/src/views/pages/page_tv.dart';
 import 'package:flutter/material.dart';
 import 'src/views/pages/details_page.dart';
@@ -22,6 +23,15 @@ class RouteGenerator {
         return _errorRoute();
       case '/tv_page':
         return MaterialPageRoute(builder: (context) => const PageTv());
+      case '/details_tv_page':
+        if (args is int) {
+          return MaterialPageRoute(
+            builder: (context) => DetailsTvPage(
+              idTv: args,
+            ),
+          );
+        }
+        return _errorRoute();
       default:
         return _errorRoute();
     }

@@ -2,6 +2,7 @@ import 'package:consumindo_api/src/models/created_by.dart';
 import 'package:consumindo_api/src/models/genre_tv.dart';
 import 'package:consumindo_api/src/models/last_episode_to_air.dart';
 import 'package:consumindo_api/src/models/networks.dart';
+import 'package:consumindo_api/src/models/next_episode_to_air.dart';
 import 'package:consumindo_api/src/models/production_companies.dart';
 import 'package:consumindo_api/src/models/production_countries.dart';
 import 'package:consumindo_api/src/models/seasons.dart';
@@ -9,7 +10,7 @@ import 'package:consumindo_api/src/models/spoken_languages.dart';
 
 class DetailsTv {
   bool? adult;
-  // Null? backdropPath;
+  String? backdropPath;
   List<CreatedBy>? createdBy;
   List<int>? episodeRunTime;
   String? firstAirDate;
@@ -21,7 +22,7 @@ class DetailsTv {
   String? lastAirDate;
   LastEpisodeToAir? lastEpisodeToAir;
   String? name;
-  // Null? nextEpisodeToAir;
+  NextEpisodeToAir? nextEpisodeToAir;
   List<Networks>? networks;
   int? numberOfEpisodes;
   int? numberOfSeasons;
@@ -30,7 +31,7 @@ class DetailsTv {
   String? originalName;
   String? overview;
   double? popularity;
-  // Null? posterPath;
+  String? posterPath;
   List<ProductionCompanies>? productionCompanies;
   List<ProductionCountries>? productionCountries;
   List<Seasons>? seasons;
@@ -43,7 +44,7 @@ class DetailsTv {
 
   DetailsTv(
       {this.adult,
-      // this.backdropPath,
+      this.backdropPath,
       this.createdBy,
       this.episodeRunTime,
       this.firstAirDate,
@@ -55,7 +56,7 @@ class DetailsTv {
       this.lastAirDate,
       this.lastEpisodeToAir,
       this.name,
-      // this.nextEpisodeToAir,
+      this.nextEpisodeToAir,
       this.networks,
       this.numberOfEpisodes,
       this.numberOfSeasons,
@@ -64,7 +65,7 @@ class DetailsTv {
       this.originalName,
       this.overview,
       this.popularity,
-      // this.posterPath,
+      this.posterPath,
       this.productionCompanies,
       this.productionCountries,
       this.seasons,
@@ -127,6 +128,9 @@ class DetailsTv {
     }
 
     return DetailsTv(
+      nextEpisodeToAir: json['next_episode_to_air'] != null
+          ? NextEpisodeToAir.fromJson(json['next_episode_to_air'])
+          : null,
       createdBy: createdBy,
       genres: genres,
       networks: networks,
@@ -135,7 +139,7 @@ class DetailsTv {
       seasons: seasons,
       spokenLanguages: spokenLanguages,
       adult: json['adult'],
-      // backdropPath : json['backdrop_path'],
+      backdropPath: json['backdrop_path'],
       episodeRunTime: json['episode_run_time'].cast<int>(),
       firstAirDate: json['first_air_date'],
       homepage: json['homepage'],
@@ -147,20 +151,19 @@ class DetailsTv {
           ? LastEpisodeToAir.fromJson(json['last_episode_to_air'])
           : null,
       name: json['name'],
-      // nextEpisodeToAir = json['next_episode_to_air'],
-      numberOfEpisodes: json['number_of_episodes'],
-      numberOfSeasons: json['number_of_seasons'],
+      numberOfEpisodes: int.tryParse('${json['number_of_episodes']}'),
+      numberOfSeasons: int.tryParse('${json['number_of_seasons']}'),
       originCountry: json['origin_country'].cast<String>(),
       originalLanguage: json['original_language'],
       originalName: json['original_name'],
       overview: json['overview'],
       popularity: json['popularity'],
-      // posterPath: json['poster_path'],
+      posterPath: json['poster_path'],
       status: json['status'],
       tagline: json['tagline'],
       type: json['type'],
       voteAverage: json['vote_average'],
-      voteCount: json['vote_count'],
+      voteCount: int.tryParse('${json['vote_count']}'),
     );
   }
 
@@ -202,8 +205,12 @@ class DetailsTv {
       data['networks'] = networks!.map((v) => v.toJson()).toList();
     }
 
+    if (nextEpisodeToAir != null) {
+      data['next_episode_to_air'] = nextEpisodeToAir!.toJson();
+    }
+
     data['adult'] = adult;
-    // data['backdrop_path'] = backdropPath;
+    data['backdrop_path'] = backdropPath;
     data['episode_run_time'] = episodeRunTime;
     data['first_air_date'] = firstAirDate;
     data['homepage'] = homepage;
@@ -212,7 +219,6 @@ class DetailsTv {
     data['languages'] = languages;
     data['last_air_date'] = lastAirDate;
     data['name'] = name;
-    // data['next_episode_to_air'] = nextEpisodeToAir;
     data['number_of_episodes'] = numberOfEpisodes;
     data['number_of_seasons'] = numberOfSeasons;
     data['origin_country'] = originCountry;
@@ -220,7 +226,7 @@ class DetailsTv {
     data['original_name'] = originalName;
     data['overview'] = overview;
     data['popularity'] = popularity;
-    // data['poster_path'] = posterPath;
+    data['poster_path'] = posterPath;
     data['status'] = status;
     data['tagline'] = tagline;
     data['type'] = type;

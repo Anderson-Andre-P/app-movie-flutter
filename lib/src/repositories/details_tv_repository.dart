@@ -6,7 +6,7 @@ class DetailsTvRepository {
 
   DetailsTvRepository(this.dio);
 
-  Future<DetailsTv> featchDetailsTv({required String idTv}) async {
+  Future<DetailsTv> featchDetailsTv({int? idTv}) async {
     try {
       final response = await dio.get(
         'tv/$idTv',

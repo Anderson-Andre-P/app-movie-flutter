@@ -40,7 +40,7 @@ class CardItemTv extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/details', arguments: tv.id);
+          Navigator.pushNamed(context, '/details_tv_page', arguments: tv.id);
           // Navigator.pushReplacement(
           //   context,
           //   MaterialPageRoute(
